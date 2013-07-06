@@ -7,11 +7,10 @@
 		
 		public function MenuState(manager:StateManager) {
 			super(manager);
+			trace("MENU STATE INITIALIZED");
 			
 			playButton.addEventListener(MouseEvent.CLICK, playClicked, false, 0, true);
 			creditsButton.addEventListener(MouseEvent.CLICK, creditsClicked, false, 0, true);
-			
-			trace("MENU STATE INITIALIZED");
 		}
 		
 		private function playClicked(e:MouseEvent):void {

@@ -7,10 +7,9 @@
 		
 		public function CreditsState(manager:StateManager) {
 			super(manager);
+			trace("CREDITS STATE INITIALIZED");
 			
 			backButton.addEventListener(MouseEvent.CLICK, backClicked, false, 0, true);
-			
-			trace("CREDITS STATE INITIALIZED");
 		}
 		
 		private function backClicked(e:MouseEvent):void {

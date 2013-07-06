@@ -8,6 +8,8 @@
 		
 		public static const MINIGAME_COMPLETE:String = "MINIGAME_COMPLETE";
 		
+		public var _gameName:String;
+		
 		private var _gameState:GameState;
 		
 		public function Minigame(gameState:GameState) {
