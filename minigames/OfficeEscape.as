@@ -20,6 +20,7 @@
 		private var _gravity:Number = 2.5;
 		private var _timer:Timer;
 		private var _runSpeed:int = 20;
+		private var _flashTime:int = 0;
 		
 		public function OfficeEscape(gameState:GameState) {
 			super(gameState);
@@ -42,6 +43,8 @@
 			SoundManager.addSound("Ow2", new Ow2(), SoundManager.FX);
 			SoundManager.addSound("Ow3", new Ow3(), SoundManager.FX);
 			SoundManager.addSound("Jump", new Jump(), SoundManager.FX);
+			SoundManager.addSound("Slide", new Slide(), SoundManager.FX);
+			SoundManager.addSound("Hit", new Hit(), SoundManager.FX);
 			SoundManager.addSound("GottaLeave", new LeaveWork(), SoundManager.FX);
 			SoundManager.playSound("GottaLeave");
 		}
@@ -49,6 +52,7 @@
 		protected override function keyDownFunction(e:KeyboardEvent):void {
 			if (e.keyCode == 83 && !_jumping) {
 				character.gotoAndStop(2);
+				if (!SoundManager.checkIfPlaying("Slide")) SoundManager.playSound("Slide");
 			}
 			if (e.keyCode == 87 && !_jumping) {
 				_jumping = true;
@@ -59,7 +63,10 @@
 		}
 		
 		protected override function keyUpFunction(e:KeyboardEvent):void {
-			if (!_jumping) character.gotoAndStop(1);
+			if (!_jumping && e.keyCode == 83) {
+				character.gotoAndStop(1);
+				SoundManager.stopSound("Slide");
+			}
 		}
 		
 		public override function update():void {
@@ -92,12 +99,29 @@
 					if (!SoundManager.checkIfPlaying("Ow1") && !SoundManager.checkIfPlaying("Ow2") && !SoundManager.checkIfPlaying("Ow3")) {
 						var randomInt:int = Math.floor( Math.random() * 3 ) + 1;
 						SoundManager.playSound("Ow" + randomInt);
+						SoundManager.playSound("Hit");
+						_gameState.shakeMinigame(20);
+						character.gotoAndStop(4);
+						_flashTime = 32;
 					}
 				}
+			}
+			if (character.currentFrame == 4 && _flashTime == 0) {
+				character.gotoAndStop(1);
+			}
+			else if (character.currentFrame == 4) {
+				_flashTime--;
 			}
 		}
 		
 		private function timerComplete(e:TimerEvent):void {
+			SoundManager.removeSound("Ow1");
+			SoundManager.removeSound("Ow2");
+			SoundManager.removeSound("Ow3");
+			SoundManager.removeSound("Jump");
+			SoundManager.removeSound("Slide");
+			SoundManager.removeSound("Hit");
+			SoundManager.removeSound("GottaLeave");
 			minigameComplete();
 		}
 		

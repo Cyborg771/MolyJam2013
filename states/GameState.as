@@ -19,6 +19,8 @@
 		private var _currentIndex = 0;
 		private var _currentMinigame:Minigame;
 		
+		private var _shakeTime:int = 0;
+		
 		public function GameState(manager:StateManager) {
 			super(manager);
 			trace("GAME STATE INITIALIZED");
@@ -28,7 +30,7 @@
 			_relaxationMeter.y = 10;
 			addChild(_relaxationMeter);
 			
-			_minigames = new Array(TestMinigame, OfficeEscape);
+			_minigames = new Array(TestMinigame, OfficeEscape, DriveHome);
 			
 			var _loader:Loader = new Loader();
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaded, false, 0, true);
@@ -42,7 +44,19 @@
 		
 		public override function update():void {
 			_relaxationMeter.update();
-			if (_currentMinigame != null) _currentMinigame.update();
+			if (_currentMinigame != null) {
+				_currentMinigame.update();
+				if (_shakeTime > 0) {
+					var randomInt:int = Math.floor( Math.random() * 3 ) -1;
+					_currentMinigame.x = randomInt * _shakeTime;
+					_currentMinigame.y = randomInt * _shakeTime;
+					_shakeTime--;
+				}
+				else {
+					_currentMinigame.x = 0;
+					_currentMinigame.y = 0;
+				}
+			}
 		}
 		
 		private function onLoaded(e:Event) {
@@ -74,6 +88,10 @@
 		private function minigameComplete(e:Event):void {
 			_currentIndex++;
 			nextMinigame();
+		}
+		
+		public function shakeMinigame(time:int):void {
+			_shakeTime = time;
 		}
 		
 	}

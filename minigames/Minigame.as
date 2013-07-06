@@ -11,7 +11,7 @@
 		
 		public var _gameName:String;
 		
-		private var _gameState:GameState;
+		protected var _gameState:GameState;
 		
 		public function Minigame(gameState:GameState) {
 			_gameState = gameState;

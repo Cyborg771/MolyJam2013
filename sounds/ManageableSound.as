@@ -39,8 +39,10 @@
 		//stop ends the SoundChannel's playback and then nullifies it
 		public function stop():void
 		{
-			soundChannel.stop();
-			soundChannel = null;
+			if (soundChannel != null) {
+				soundChannel.stop();
+				soundChannel = null;
+			}
 		}
 		
 		//pause checks if the sound is currently playing, if so it saves the current playback position to the pausePosition variable, stops, the playback, and sets the

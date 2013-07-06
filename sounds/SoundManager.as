@@ -107,6 +107,16 @@
 			else trace(soundName+" DOES NOT EXIST");
 		}
 		
+		public static function stopSound(soundName:String):void
+		{
+			if (_$sounds[soundName] != null)
+			{
+				_$sounds[soundName].stop();
+				trace("STOPPING SOUND: "+soundName);
+			}
+			else trace(soundName+" DOES NOT EXIST");
+		}
+		
 		//pauseAllSounds iterates through each ManageableSound object in the sounds dictionary and calls the pauseSound function on it.
 		public static function pauseAllSounds():void
 		{
