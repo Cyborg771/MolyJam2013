@@ -1,6 +1,7 @@
 ﻿package states {
 	
 	import flash.display.Sprite;
+	import flash.display.Stage;
 	
 	public class State extends Sprite {
 
@@ -11,6 +12,10 @@
 		}
 		
 		public virtual function update():void {
+		}
+		
+		public function getStage():Stage{
+			return _manager._mainClass.stage;
 		}
 
 	}

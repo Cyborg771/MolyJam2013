@@ -1,10 +1,12 @@
 ﻿package states {
 	
 	import flash.display.Sprite;
+	import flash.display.DisplayObjectContainer;
 	import flash.events.MouseEvent;
 	import flash.events.Event;
 	import ui.RelaxationMeter;
 	import minigames.*;
+	import minigames.officeescape.*;
 	
 	public class GameState extends State {
 		
@@ -19,9 +21,11 @@
 			trace("GAME STATE INITIALIZED");
 			
 			_relaxationMeter = new RelaxationMeter();
+			_relaxationMeter.x = 10;
+			_relaxationMeter.y = 10;
 			addChild(_relaxationMeter);
 			
-			_minigames = new Array(TestMinigame, TestMinigame, TestMinigame);
+			_minigames = new Array(TestMinigame, OfficeEscape);
 			
 			nextMinigame();
 			_currentMinigame.addEventListener(Minigame.MINIGAME_COMPLETE, minigameComplete, false, 0, true);
@@ -44,6 +48,7 @@
 				trace("NEW MINIGAME \""+_currentMinigame._gameName+"\"");
 				_currentMinigame.addEventListener(Minigame.MINIGAME_COMPLETE, minigameComplete, false, 0, true);
 				addChild(_currentMinigame);
+				setChildIndex(_relaxationMeter, this.numChildren-1);
 			}
 			else {
 				trace("GAME OVER");

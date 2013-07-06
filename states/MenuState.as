@@ -3,6 +3,7 @@
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 	
 	public class MenuState extends State {
 		
@@ -14,6 +15,8 @@
 			creditsButton.addEventListener(MouseEvent.CLICK, creditsClicked, false, 0, true);
 			
 			introQuote.addEventListener(Event.ENTER_FRAME, introQuoteUpdate, false, 0, true);
+			
+			getStage().addEventListener(KeyboardEvent.KEY_DOWN, keyDownFunction, false, 0, true);
 		}
 		
 		private function playClicked(e:MouseEvent):void {
@@ -32,6 +35,13 @@
 				introQuote = null;
 			}
 		}
+		
+		private function keyDownFunction(e:KeyboardEvent):void {
+			introQuote.gotoAndStop(introQuote.totalFrames);
+			getStage().removeEventListener(KeyboardEvent.KEY_DOWN, keyDownFunction);
+		}
+		
+		
 	}
 	
 }
