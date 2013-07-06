@@ -6,9 +6,13 @@
 	import flash.events.Event;
 	import ui.RelaxationMeter;
 	import minigames.*;
+	import flash.display.Loader;
+	import flash.net.URLRequest;
+	import flash.display.MovieClip;
 	
 	public class GameState extends State {
 		
+		private var _background:MovieClip;
 		private var _relaxationMeter:RelaxationMeter;
 		
 		private var _minigames:Array;
@@ -26,13 +30,26 @@
 			
 			_minigames = new Array(TestMinigame, OfficeEscape);
 			
+			var _loader:Loader = new Loader();
+			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaded, false, 0, true);
+			_loader.load(new URLRequest("Background.swf"));
+			
 			nextMinigame();
 			_currentMinigame.addEventListener(Minigame.MINIGAME_COMPLETE, minigameComplete, false, 0, true);
+			
+			setChildIndex(loadScreen, this.numChildren-1);
 		}
 		
 		public override function update():void {
 			_relaxationMeter.update();
 			if (_currentMinigame != null) _currentMinigame.update();
+		}
+		
+		private function onLoaded(e:Event) {
+			_background = e.target.content;
+			addChild(_background);
+			setChildIndex(_background, 0);
+			removeChild(loadScreen);
 		}
 		
 		private function nextMinigame(){

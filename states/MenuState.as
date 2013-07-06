@@ -21,7 +21,7 @@
 			
 			var _loader:Loader = new Loader();
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaded, false, 0, true);
-			_loader.load(new URLRequest("assets/IntroQuote.swf"));
+			_loader.load(new URLRequest("IntroQuote.swf"));
 		}
 		
 		private function playClicked(e:MouseEvent):void {
