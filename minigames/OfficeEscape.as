@@ -24,7 +24,7 @@
 			super(gameState);
 			_gameName = "Office Escape";
 			
-			_timer = new Timer(15000, 1);
+			_timer = new Timer(30000, 1);
 			_timer.addEventListener(TimerEvent.TIMER_COMPLETE, timerComplete, false, 0, true);
 			_timer.start();
 			_backgrounds = new Array(background1, background2);
@@ -36,17 +36,18 @@
 		}
 		
 		protected override function keyDownFunction(e:KeyboardEvent):void {
-			if (e.keyCode == 83) {
+			if (e.keyCode == 83 && !_jumping) {
 				character.gotoAndStop(2);
 			}
 			if (e.keyCode == 87 && !_jumping) {
 				_jumping = true;
+				character.gotoAndStop(3);
 				_velocityY = _jumpStrength;
 			}
 		}
 		
 		protected override function keyUpFunction(e:KeyboardEvent):void {
-			character.gotoAndStop(1);
+			if (!_jumping) character.gotoAndStop(1);
 		}
 		
 		public override function update():void {
@@ -56,6 +57,7 @@
 				if (character.y > 550) {
 					character.y = 550;
 					_jumping = false;
+					character.gotoAndStop(1);
 				}
 			}
 			
