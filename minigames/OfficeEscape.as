@@ -7,15 +7,16 @@
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
 	import flash.geom.Rectangle;
+	import sounds.SoundManager;
 	
 	public class OfficeEscape extends Minigame {
 		
 		private var _backgrounds:Array;
 		private var _obstacles:Array;
-		private var _obstaclePositions:Array = new Array(455, 310);
+		private var _obstaclePositions:Array = new Array(410, 110);
 		private var _jumping:Boolean = false;
 		private var _velocityY:Number = 0;
-		private var _jumpStrength:Number = 30;
+		private var _jumpStrength:Number = 35;
 		private var _gravity:Number = 2.5;
 		private var _timer:Timer;
 		private var _runSpeed:int = 20;
@@ -24,15 +25,25 @@
 			super(gameState);
 			_gameName = "Office Escape";
 			
-			_timer = new Timer(30000, 1);
+			_timer = new Timer(25000, 1);
 			_timer.addEventListener(TimerEvent.TIMER_COMPLETE, timerComplete, false, 0, true);
 			_timer.start();
 			_backgrounds = new Array(background1, background2);
+			for (var i = 0; i < _backgrounds.length; i++) {
+				_backgrounds[i].gotoAndStop(i+1);
+			}
 			_obstacles = new Array(obstacle1, obstacle2);
-			for (var i = 0; i < _obstacles.length; i++) {
+			for (i = 0; i < _obstacles.length; i++) {
 				setObstacle(_obstacles[i]);
 			}
 			character.stop();
+			
+			SoundManager.addSound("Ow1", new Ow1(), SoundManager.FX);
+			SoundManager.addSound("Ow2", new Ow2(), SoundManager.FX);
+			SoundManager.addSound("Ow3", new Ow3(), SoundManager.FX);
+			SoundManager.addSound("Jump", new Jump(), SoundManager.FX);
+			SoundManager.addSound("GottaLeave", new LeaveWork(), SoundManager.FX);
+			SoundManager.playSound("GottaLeave");
 		}
 		
 		protected override function keyDownFunction(e:KeyboardEvent):void {
@@ -43,6 +54,7 @@
 				_jumping = true;
 				character.gotoAndStop(3);
 				_velocityY = _jumpStrength;
+				SoundManager.playSound("Jump");
 			}
 		}
 		
@@ -68,14 +80,19 @@
 				}
 			}
 			
+			var charBox:Rectangle = new Rectangle(character.x, character.y-character.hitBox.height, character.hitBox.width, character.hitBox.height);
 			for (i = 0; i < _obstacles.length; i++) {
 				_obstacles[i].x-=_runSpeed;
 				if (_obstacles[i].x <= 0-_obstacles[i].width) {
 					_obstacles[i].x += 3200;
 					setObstacle(_obstacles[i]);
 				}
-				if (new Rectangle(character.x, character.y-character.height, character.width, character.height).intersects(new Rectangle(_obstacles[i].x, _obstacles[i].y, _obstacles[i].width, _obstacles[i].height))) {
-					trace("HIT");
+				var obstBox:Rectangle = new Rectangle(_obstacles[i].x + _obstacles[i].hitBox.x, _obstacles[i].y + _obstacles[i].hitBox.y, _obstacles[i].hitBox.width, _obstacles[i].hitBox.height);
+				if (charBox.intersects(obstBox)) {
+					if (!SoundManager.checkIfPlaying("Ow1") && !SoundManager.checkIfPlaying("Ow2") && !SoundManager.checkIfPlaying("Ow3")) {
+						var randomInt:int = Math.floor( Math.random() * 3 ) + 1;
+						SoundManager.playSound("Ow" + randomInt);
+					}
 				}
 			}
 		}
