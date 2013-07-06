@@ -35,6 +35,7 @@
 		private function onLoaded(e:Event){
 			introVid = e.target.content;
 			addChild(introVid);
+			removeChild(loadScreen);
 			
 			introVid.addEventListener(Event.ENTER_FRAME, introVidUpdate, false, 0, true);
 			introVid.addEventListener(MouseEvent.CLICK, skipQuote, false, 0, true);
@@ -42,6 +43,9 @@
 		}
 		 
 		private function introVidUpdate(e:Event):void {
+			if (e.target.currentFrame >= 423) {
+				introVid.alpha -= 0.05;
+			}
 			if (e.target.currentFrame == e.target.totalFrames) {
 				introVid.removeEventListener(Event.ENTER_FRAME, introVidUpdate);
 				introVid.removeEventListener(MouseEvent.CLICK, skipQuote);
@@ -49,7 +53,6 @@
 				removeChild(introVid);
 				introVid.stop();
 				introVid = null;
-				removeChild(loadScreen);
 			}
 		}
 		
