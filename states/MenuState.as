@@ -15,8 +15,8 @@
 			creditsButton.addEventListener(MouseEvent.CLICK, creditsClicked, false, 0, true);
 			
 			introQuote.addEventListener(Event.ENTER_FRAME, introQuoteUpdate, false, 0, true);
-			
-			getStage().addEventListener(KeyboardEvent.KEY_DOWN, keyDownFunction, false, 0, true);
+			introQuote.addEventListener(MouseEvent.CLICK, skipQuote, false, 0, true);
+			getStage().addEventListener(KeyboardEvent.KEY_DOWN, skipQuote, false, 0, true);
 		}
 		
 		private function playClicked(e:MouseEvent):void {
@@ -30,17 +30,17 @@
 		private function introQuoteUpdate(e:Event):void {
 			if (e.target.currentFrame == e.target.totalFrames) {
 				introQuote.removeEventListener(Event.ENTER_FRAME, introQuoteUpdate);
+				introQuote.removeEventListener(MouseEvent.CLICK, skipQuote);
+				getStage().removeEventListener(KeyboardEvent.KEY_DOWN, skipQuote);
 				removeChild(introQuote);
 				introQuote.stop();
 				introQuote = null;
 			}
 		}
 		
-		private function keyDownFunction(e:KeyboardEvent):void {
+		private function skipQuote(e:Event):void {
 			introQuote.gotoAndStop(introQuote.totalFrames);
-			getStage().removeEventListener(KeyboardEvent.KEY_DOWN, keyDownFunction);
 		}
-		
 		
 	}
 	

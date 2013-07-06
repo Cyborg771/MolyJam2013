@@ -6,7 +6,6 @@
 	import flash.events.Event;
 	import ui.RelaxationMeter;
 	import minigames.*;
-	import minigames.officeescape.*;
 	
 	public class GameState extends State {
 		

@@ -17,6 +17,7 @@
 			_gameState = gameState;
 			
 			_gameState.getStage().addEventListener(KeyboardEvent.KEY_DOWN, keyDownFunction, false, 0, true);
+			_gameState.getStage().addEventListener(KeyboardEvent.KEY_UP, keyUpFunction, false, 0, true);
 			_gameState.getStage().focus = this;
 		}
 		
@@ -25,6 +26,10 @@
 		}
 		
 		protected virtual function keyDownFunction(e:KeyboardEvent):void {
+			
+		}
+		
+		protected virtual function keyUpFunction(e:KeyboardEvent):void {
 			
 		}
 		
