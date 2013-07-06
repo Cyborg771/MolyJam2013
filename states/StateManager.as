@@ -8,17 +8,14 @@
 		
 		private var _currentState:State;
 		
-		public function StateManager(mainClass:MolyJam2013)
-		{
+		public function StateManager(mainClass:MolyJam2013) {
 			_mainClass = mainClass;
 		}
 		
-		public function setState(stateToSet:String)
-		{
+		public function setState(stateToSet:String) {
 			if (_currentState != null) clearCurrentState();
 			
-			switch (stateToSet)
-			{
+			switch (stateToSet) {
 				case "Game":
 					_currentState = new GameState(this);
 					break;
@@ -36,14 +33,12 @@
 			_mainClass.stage.addChild(_currentState);
 		}
 		
-		private function clearCurrentState():void
-		{
+		private function clearCurrentState():void {
 			_mainClass.stage.removeChild(_currentState);
 			_currentState = null;
 		}
 		
-		public function update():void
-		{
+		public function update():void {
 			if (_currentState) _currentState.update();
 			else trace("ERROR: State Unset");
 		}
