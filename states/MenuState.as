@@ -4,8 +4,13 @@
 	import flash.events.MouseEvent;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.display.Loader;
+	import flash.net.URLRequest;
+	import flash.display.MovieClip;
 	
 	public class MenuState extends State {
+		
+		private var introVid:MovieClip;
 		
 		public function MenuState(manager:StateManager) {
 			super(manager);
@@ -14,9 +19,9 @@
 			playButton.addEventListener(MouseEvent.CLICK, playClicked, false, 0, true);
 			creditsButton.addEventListener(MouseEvent.CLICK, creditsClicked, false, 0, true);
 			
-			introQuote.addEventListener(Event.ENTER_FRAME, introQuoteUpdate, false, 0, true);
-			introQuote.addEventListener(MouseEvent.CLICK, skipQuote, false, 0, true);
-			getStage().addEventListener(KeyboardEvent.KEY_DOWN, skipQuote, false, 0, true);
+			var _loader:Loader = new Loader();
+			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaded, false, 0, true);
+			_loader.load(new URLRequest("assets/IntroQuote.swf"));
 		}
 		
 		private function playClicked(e:MouseEvent):void {
@@ -27,19 +32,29 @@
 			_manager.setState("Credits");
 		}
 		
-		private function introQuoteUpdate(e:Event):void {
+		private function onLoaded(e:Event){
+			introVid = e.target.content;
+			addChild(introVid);
+			
+			introVid.addEventListener(Event.ENTER_FRAME, introVidUpdate, false, 0, true);
+			introVid.addEventListener(MouseEvent.CLICK, skipQuote, false, 0, true);
+			getStage().addEventListener(KeyboardEvent.KEY_DOWN, skipQuote, false, 0, true);
+		}
+		 
+		private function introVidUpdate(e:Event):void {
 			if (e.target.currentFrame == e.target.totalFrames) {
-				introQuote.removeEventListener(Event.ENTER_FRAME, introQuoteUpdate);
-				introQuote.removeEventListener(MouseEvent.CLICK, skipQuote);
+				introVid.removeEventListener(Event.ENTER_FRAME, introVidUpdate);
+				introVid.removeEventListener(MouseEvent.CLICK, skipQuote);
 				getStage().removeEventListener(KeyboardEvent.KEY_DOWN, skipQuote);
-				removeChild(introQuote);
-				introQuote.stop();
-				introQuote = null;
+				removeChild(introVid);
+				introVid.stop();
+				introVid = null;
+				removeChild(loadScreen);
 			}
 		}
 		
 		private function skipQuote(e:Event):void {
-			introQuote.gotoAndStop(introQuote.totalFrames);
+			introVid.gotoAndStop(introVid.totalFrames);
 		}
 		
 	}
