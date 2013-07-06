@@ -17,7 +17,7 @@
 			SoundManager.initialize();
 			
 			_stateManager = new StateManager(this);
-			//_stateManager.setState("Menu");
+			_stateManager.setState("Menu");
 			
 			addEventListener(Event.ENTER_FRAME, update, false, 0, true);
 		}

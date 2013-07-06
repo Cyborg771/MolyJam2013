@@ -4,7 +4,6 @@
 	
 	public class StateManager
 	{
-
 		public var _mainClass:MolyJam2013;
 		
 		private var _currentState:State;
@@ -21,18 +20,16 @@
 			switch (stateToSet)
 			{
 				case "Game":
-					//_currentState = new GameState(this);
+					_currentState = new GameState(this);
 					break;
 				case "Menu":
-					//_currentState = new MenuState(this);
+					_currentState = new MenuState(this);
 					break;
-				case "Settings":
-					//_currentState = new SettingsState(this);
-					break;
-				case "Tutorial":
-					//_currentState = new TutorialState(this);
+				case "Credits":
+					_currentState = new CreditsState(this);
 					break;
 				default:
+					trace("Unknown state: " + stateToSet);
 					break;
 			}
 			
@@ -43,7 +40,6 @@
 		{
 			_mainClass.stage.removeChild(_currentState);
 			_currentState = null;
-			trace("STATE REMOVED");
 		}
 		
 		public function update():void
