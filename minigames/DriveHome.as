@@ -27,7 +27,7 @@
 			super(gameState);
 			_gameName = "Drive Home";
 			
-			_timer = new Timer(25000, 1);
+			_timer = new Timer(20000, 1);
 			_timer.addEventListener(TimerEvent.TIMER_COMPLETE, timerComplete, false, 0, true);
 			_timer.start();
 			
