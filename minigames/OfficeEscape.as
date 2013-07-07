@@ -26,9 +26,6 @@
 			super(gameState);
 			_gameName = "Office Escape";
 			
-			_timer = new Timer(25000, 1);
-			_timer.addEventListener(TimerEvent.TIMER_COMPLETE, timerComplete, false, 0, true);
-			_timer.start();
 			_backgrounds = new Array(background1, background2);
 			for (var i = 0; i < _backgrounds.length; i++) {
 				_backgrounds[i].gotoAndStop(i+1);
@@ -46,26 +43,39 @@
 			SoundManager.addSound("Slide", new Slide(), SoundManager.FX);
 			SoundManager.addSound("Hit", new Hit(), SoundManager.FX);
 			SoundManager.addSound("GottaLeave", new LeaveWork(), SoundManager.FX);
+		}
+		
+		public override function startGame():void {
+			_started = true;
+			
+			_timer = new Timer(25000, 1);
+			_timer.addEventListener(TimerEvent.TIMER_COMPLETE, timerComplete, false, 0, true);
+			_timer.start();
+			
 			SoundManager.playSound("GottaLeave");
 		}
 		
 		protected override function keyDownFunction(e:KeyboardEvent):void {
-			if ((e.keyCode == 83 || e.keyCode == 40) && !_jumping) {
-				character.gotoAndStop(2);
-				if (!SoundManager.checkIfPlaying("Slide")) SoundManager.playSound("Slide");
-			}
-			if ((e.keyCode || e.keyCode == 38) == 87 && !_jumping) {
-				_jumping = true;
-				character.gotoAndStop(3);
-				_velocityY = _jumpStrength;
-				SoundManager.playSound("Jump");
+			if (_started) {
+				if ((e.keyCode == 83 || e.keyCode == 40) && !_jumping) {
+					character.gotoAndStop(2);
+					if (!SoundManager.checkIfPlaying("Slide")) SoundManager.playSound("Slide");
+				}
+				if ((e.keyCode || e.keyCode == 38) == 87 && !_jumping) {
+					_jumping = true;
+					character.gotoAndStop(3);
+					_velocityY = _jumpStrength;
+					SoundManager.playSound("Jump");
+				}
 			}
 		}
 		
 		protected override function keyUpFunction(e:KeyboardEvent):void {
-			if (!_jumping && (e.keyCode == 83 || e.keyCode == 40)) {
-				character.gotoAndStop(1);
-				SoundManager.stopSound("Slide");
+			if (_started) {
+				if (!_jumping && (e.keyCode == 83 || e.keyCode == 40)) {
+					character.gotoAndStop(1);
+					SoundManager.stopSound("Slide");
+				}
 			}
 		}
 		

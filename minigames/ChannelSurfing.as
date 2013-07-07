@@ -20,18 +20,25 @@
 			super(gameState);
 			_gameName = "ChannelSurfing";
 			
+			tvContent.visible = false;
+			icon.gotoAndStop(1);
+			
+			tvContent.stop();
+		}
+		
+		public override function startGame():void {
+			_started = true;
+			
 			_timer = new Timer(20000, 1);
 			_timer.addEventListener(TimerEvent.TIMER_COMPLETE, timerComplete, false, 0, true);
 			_timer.start();
-			
-			changeChannel();
-			icon.gotoAndStop(1);
 			
 			_channelTimer = new Timer(2000, 0);
 			_channelTimer.addEventListener(TimerEvent.TIMER, changeChannel, false, 0, true);
 			_channelTimer.start();
 			
-			tvContent.stop();
+			tvContent.visible = true;
+			changeChannel();
 		}
 		
 		private function timerComplete(e:TimerEvent):void {
@@ -47,6 +54,8 @@
 		}
 		
 		private function changeChannel(e:Event = null):void {
+			_channelTimer.reset();
+			_channelTimer.start();
 			var randomInt = _prevChannel
 			while (randomInt == _prevChannel) randomInt= Math.floor( Math.random() * 9 ) + 1;
 			tvContent.gotoAndStop(randomInt);

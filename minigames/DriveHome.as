@@ -27,10 +27,6 @@
 			super(gameState);
 			_gameName = "Drive Home";
 			
-			_timer = new Timer(20000, 1);
-			_timer.addEventListener(TimerEvent.TIMER_COMPLETE, timerComplete, false, 0, true);
-			_timer.start();
-			
 			_downCars = new Array(enemyCar7, enemyCar8, enemyCar9, enemyCar10, enemyCar11, enemyCar12);
 			for (var i = 0; i < _downCars.length; i++) {
 				randomizeCar(0, _downCars[i]);
@@ -42,9 +38,18 @@
 			
 			SoundManager.addSound("Hit", new Hit(), SoundManager.FX);
 			SoundManager.addSound("Engine", new Engine(), SoundManager.FX);
-			SoundManager.playSound("Engine", true);
 			
 			_backgrounds = new Array(background1, background2);
+		}
+		
+		public override function startGame():void {
+			_started = true;
+			
+			_timer = new Timer(20000, 1);
+			_timer.addEventListener(TimerEvent.TIMER_COMPLETE, timerComplete, false, 0, true);
+			_timer.start();
+			
+			SoundManager.playSound("Engine", true);
 		}
 		
 		public override function update():void {
@@ -103,32 +108,36 @@
 		}
 		
 		protected override function keyDownFunction(e:KeyboardEvent):void {
-			if (e.keyCode == 68 || e.keyCode == 39) {
-				_moveRight = true;
-			}
-			else if (e.keyCode == 65 || e.keyCode == 37) {
-				_moveLeft = true;
-			}
-			if (e.keyCode == 87 || e.keyCode == 38) {
-				_moveUp = true;
-			}
-			else if (e.keyCode == 83 || e.keyCode == 40) {
-				_moveDown = true;
+			if (_started) {
+				if (e.keyCode == 68 || e.keyCode == 39) {
+					_moveRight = true;
+				}
+				else if (e.keyCode == 65 || e.keyCode == 37) {
+					_moveLeft = true;
+				}
+				if (e.keyCode == 87 || e.keyCode == 38) {
+					_moveUp = true;
+				}
+				else if (e.keyCode == 83 || e.keyCode == 40) {
+					_moveDown = true;
+				}
 			}
 		}
 		
 		protected override function keyUpFunction(e:KeyboardEvent):void {
-			if (e.keyCode == 68 || e.keyCode == 39) {
-				_moveRight = false;
-			}
-			else if (e.keyCode == 65 || e.keyCode == 37) {
-				_moveLeft = false;
-			}
-			if (e.keyCode == 87 || e.keyCode == 38) {
-				_moveUp = false;
-			}
-			else if (e.keyCode == 83 || e.keyCode == 40) {
-				_moveDown = false;
+			if (_started) {
+				if (e.keyCode == 68 || e.keyCode == 39) {
+					_moveRight = false;
+				}
+				else if (e.keyCode == 65 || e.keyCode == 37) {
+					_moveLeft = false;
+				}
+				if (e.keyCode == 87 || e.keyCode == 38) {
+					_moveUp = false;
+				}
+				else if (e.keyCode == 83 || e.keyCode == 40) {
+					_moveDown = false;
+				}
 			}
 		}
 		

@@ -10,6 +10,7 @@
 		public static const MINIGAME_COMPLETE:String = "MINIGAME_COMPLETE";
 		
 		public var _gameName:String;
+		public var _started:Boolean = false;
 		
 		protected var _gameState:GameState;
 		
@@ -19,6 +20,10 @@
 			_gameState.getStage().addEventListener(KeyboardEvent.KEY_DOWN, keyDownFunction, false, 0, true);
 			_gameState.getStage().addEventListener(KeyboardEvent.KEY_UP, keyUpFunction, false, 0, true);
 			_gameState.getStage().focus = this;
+		}
+		
+		public virtual function startGame():void {
+			_started = true;
 		}
 		
 		public virtual function update():void {

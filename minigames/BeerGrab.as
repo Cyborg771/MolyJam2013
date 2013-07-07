@@ -17,14 +17,21 @@
 			_gameName = "Beer Grab";
 			
 			SoundManager.addSound("Beer", new Beer(), SoundManager.FX);
-			SoundManager.playSound("Beer");
 			
 			hand.stop();
 		}
 		
+		public override function startGame():void {
+			_started = true;
+			
+			SoundManager.playSound("Beer");
+		}
+		
 		protected override function keyUpFunction(e:KeyboardEvent):void {
-			if (e.keyCode == 87 || e.keyCode == 38) {
-				_grabbing = true;
+			if (_started) {
+				if (e.keyCode == 87 || e.keyCode == 38) {
+					_grabbing = true;
+				}
 			}
 		}
 		
