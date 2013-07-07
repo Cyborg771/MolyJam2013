@@ -62,7 +62,12 @@
 		public override function update():void {
 			if (_raiseHand) {
 				hand.y -= 20;
-				if (hand.y <= -hand.height) minigameComplete();
+				if (hand.y <= -hand.height) {
+					SoundManager.removeSound("Grunt1");
+					SoundManager.removeSound("Grunt2");
+					SoundManager.removeSound("Grunt3");
+					minigameComplete();
+				}
 			}
 			else {
 				_gameState.changeRelaxation(-.15);

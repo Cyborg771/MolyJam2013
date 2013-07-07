@@ -19,6 +19,10 @@
 			_matchIcons = [matchIcon1, matchIcon2, matchIcon3];
 			_lastIcon = matchIcon3;
 			
+			SoundManager.addSound("CatHappy1", new CatHappy(), SoundManager.FX);
+			SoundManager.addSound("CatHappy2", new CatHappy2(), SoundManager.FX);
+			SoundManager.addSound("CatAngry", new CatAngry(), SoundManager.FX);
+			
 			cat.stop();
 		}
 		
@@ -45,12 +49,17 @@
 						_gameState.changeRelaxation(1);
 						_patCounter++;
 						if (_patCounter >= 15) {
+							SoundManager.removeSound("CatHappy1");
+							SoundManager.removeSound("CatHappy2");
+							SoundManager.removeSound("CatAngry");
 							minigameComplete();
 						}
+						SoundManager.playSound("CatHappy"+(_patCounter%2+1));
 					}
 					else {
 						cat.gotoAndStop(2);
 						_gameState.changeRelaxation(-3);
+						SoundManager.playSound("CatAngry");
 					}
 				}
 			}

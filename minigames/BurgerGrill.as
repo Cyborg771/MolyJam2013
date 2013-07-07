@@ -27,6 +27,8 @@
 				setGrillTime(i);
 			}
 			_burgerPositions = [100, 260, 420, 580];
+			
+			SoundManager.addSound("Jump", new Jump(), SoundManager.FX);
 		}
 		
 		public override function startGame():void {
@@ -52,11 +54,15 @@
 				}
 				if (e.keyCode == 87 && _burgers[_currentPosition].currentFrame == 1) {
 					_burgers[_currentPosition].play();
+					SoundManager.playSound("Jump");
 					_fires[_currentPosition].visible = false;
 					if (_grillTimes[_currentPosition] < 0) {
 						_gameState.changeRelaxation(3);
 						_successfulFlips++;
-						if (_successfulFlips == 12) minigameComplete();
+						if (_successfulFlips == 12){
+							SoundManager.removeSound("Jump");
+							minigameComplete();
+						}
 					}
 					setGrillTime(_currentPosition);
 				}
