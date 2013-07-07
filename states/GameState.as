@@ -9,6 +9,7 @@
 	import flash.display.Loader;
 	import flash.net.URLRequest;
 	import flash.display.MovieClip;
+	import sounds.SoundManager;
 	
 	public class GameState extends State {
 		
@@ -30,8 +31,7 @@
 			_relaxationMeter.y = 10;
 			addChild(_relaxationMeter);
 			
-			//_minigames = new Array(TestMinigame, OfficeEscape, DriveHome);
-			_minigames = new Array(OfficeEscape, DriveHome);
+			_minigames = new Array(BeerGrab, OfficeEscape, DriveHome);
 			
 			var _loader:Loader = new Loader();
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaded, false, 0, true);
@@ -41,6 +41,9 @@
 			_currentMinigame.addEventListener(Minigame.MINIGAME_COMPLETE, minigameComplete, false, 0, true);
 			
 			setChildIndex(loadScreen, this.numChildren-1);
+			
+			SoundManager.addSound("GameMusic", new GameMusic(), SoundManager.MUSIC);
+			SoundManager.playSound("GameMusic", true);
 		}
 		
 		public override function update():void {
@@ -87,6 +90,8 @@
 			}
 			else {
 				trace("GAME OVER");
+				SoundManager.stopSound("GameMusic");
+				SoundManager.removeSound("GameMusic");
 			}
 		}
 		

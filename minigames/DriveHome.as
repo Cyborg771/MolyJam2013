@@ -41,6 +41,8 @@
 			}
 			
 			SoundManager.addSound("Hit", new Hit(), SoundManager.FX);
+			SoundManager.addSound("Engine", new Engine(), SoundManager.FX);
+			SoundManager.playSound("Engine", true);
 			
 			_backgrounds = new Array(background1, background2);
 		}
@@ -132,6 +134,8 @@
 		
 		private function timerComplete(e:TimerEvent):void {
 			SoundManager.removeSound("Hit");
+			SoundManager.stopSound("Engine");
+			SoundManager.removeSound("Engine");
 			_gameState.changeRelaxation(10);
 			minigameComplete();
 		}

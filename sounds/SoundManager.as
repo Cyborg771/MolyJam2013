@@ -67,6 +67,7 @@
 					_$sounds[soundName].soundChannel.removeEventListener(Event.SOUND_COMPLETE, onSoundChannelSoundComplete);
 				}
 				_$sounds[soundName] = null;
+				delete _$sounds[soundName];
 				trace("REMOVED SOUND: "+soundName);
 			}
 			else trace(soundName+" DOES NOT EXIST");
@@ -160,7 +161,6 @@
 				if (_$sounds[key].soundChannel == e.currentTarget) {
 					if (_$sounds[key].loop) playSound(key, true);
 					else _$sounds[key].soundChannel = null;
-					break;
 				}
 			}
 		}
