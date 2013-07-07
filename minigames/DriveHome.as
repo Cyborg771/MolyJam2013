@@ -89,13 +89,14 @@
 				if (playerCar.x > 110) playerCar.x -= 5;
 			}
 			else if (_moveRight && !_moveLeft) {
-				if (playerCar.x < 685) playerCar.x += 5;
+				if (playerCar.x < 685-playerCar.width) playerCar.x += 5;
 			}
 			if (_moveUp && !_moveDown) {
-				if (playerCar.y > 120) playerCar.y -= 5;
+				if (playerCar.y > 200) playerCar.y -= 5;
 			}
 			if (_moveDown && !_moveUp) {
-				if (playerCar.y < 200) playerCar.y += 5;
+				trace("GO DOWN");
+				if (playerCar.y < 480) playerCar.y += 5;
 			}
 		}
 		
