@@ -22,12 +22,16 @@
 			SoundManager.addSound("CatHappy1", new CatHappy(), SoundManager.FX);
 			SoundManager.addSound("CatHappy2", new CatHappy2(), SoundManager.FX);
 			SoundManager.addSound("CatAngry", new CatAngry(), SoundManager.FX);
+			SoundManager.addSound("GoodCat", new GoodCat(), SoundManager.FX);
+			
 			
 			cat.stop();
 		}
 		
 		public override function startGame():void {
 			_started = true;
+			
+			SoundManager.playSound("GoodCat");
 		}
 		
 		protected override function keyDownFunction(e:KeyboardEvent):void {
@@ -52,6 +56,7 @@
 							SoundManager.removeSound("CatHappy1");
 							SoundManager.removeSound("CatHappy2");
 							SoundManager.removeSound("CatAngry");
+							SoundManager.removeSound("GoodCat");
 							minigameComplete();
 						}
 						SoundManager.playSound("CatHappy"+(_patCounter%2+1));

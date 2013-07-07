@@ -38,6 +38,7 @@
 			
 			SoundManager.addSound("Hit", new Hit(), SoundManager.FX);
 			SoundManager.addSound("Engine", new Engine(), SoundManager.FX);
+			SoundManager.addSound("Traffic", new Traffic(), SoundManager.FX);
 			
 			_backgrounds = new Array(background1, background2);
 		}
@@ -50,6 +51,7 @@
 			_timer.start();
 			
 			SoundManager.playSound("Engine", true);
+			SoundManager.playSound("Traffic");
 		}
 		
 		public override function update():void {
@@ -146,6 +148,7 @@
 			SoundManager.removeSound("Hit");
 			SoundManager.stopSound("Engine");
 			SoundManager.removeSound("Engine");
+			SoundManager.removeSound("Traffic");
 			_gameState.changeRelaxation(10);
 			minigameComplete();
 		}

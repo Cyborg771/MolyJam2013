@@ -24,6 +24,9 @@
 			icon.gotoAndStop(1);
 			
 			tvContent.stop();
+			
+			SoundManager.addSound("Static", new Static(), SoundManager.FX);
+			SoundManager.addSound("NothingOn", new NothingOn(), SoundManager.FX);
 		}
 		
 		public override function startGame():void {
@@ -39,21 +42,26 @@
 			
 			tvContent.visible = true;
 			changeChannel();
+			
+			SoundManager.playSound("NothingOn");
 		}
 		
 		private function timerComplete(e:TimerEvent):void {
+			SoundManager.removeSound("Static");
+			SoundManager.removeSound("NothingOn");
 			minigameComplete();
 		}
 		
 		protected override function keyDownFunction(e:KeyboardEvent):void {
-			if (e.keyCode == 87) tvContent.gotoAndStop(10);
+			if (e.keyCode == 87 && _started) tvContent.gotoAndStop(10);
 		}
 		
 		protected override function keyUpFunction(e:KeyboardEvent):void {
-			if (e.keyCode == 87) changeChannel(e);
+			if (e.keyCode == 87 && _started) changeChannel(e);
 		}
 		
 		private function changeChannel(e:Event = null):void {
+			SoundManager.playSound("Static");
 			_channelTimer.reset();
 			_channelTimer.start();
 			var randomInt = _prevChannel
