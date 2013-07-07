@@ -31,7 +31,7 @@
 			_relaxationMeter.y = 10;
 			addChild(_relaxationMeter);
 			
-			_minigames = new Array(BeerGrab, OfficeEscape, DriveHome);
+			_minigames = new Array(ChannelSurfing, OfficeEscape, DriveHome, BeerGrab);
 			
 			var _loader:Loader = new Loader();
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaded, false, 0, true);

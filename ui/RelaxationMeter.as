@@ -11,6 +11,9 @@
 		}
 		
 		public function update():void {
+			if (relaxationValue < -100) relaxationValue = -100;
+			if (relaxationValue > 100) relaxationValue = 100;
+			
 			if (relaxationValue > 0) {
 				negativeMask.x = 238;
 				positiveMask.x = 6 + relaxationValue * 2.33;

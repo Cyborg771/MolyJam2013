@@ -26,8 +26,10 @@
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaded, false, 0, true);
 			_loader.load(new URLRequest("IntroQuote.swf"));
 			
-			SoundManager.addSound("MenuMusic", new MenuMusic(), SoundManager.MUSIC);
-			SoundManager.playSound("MenuMusic", true);
+			if (!SoundManager.checkIfPlaying("MenuMusic")) {
+				SoundManager.addSound("MenuMusic", new MenuMusic(), SoundManager.MUSIC);
+				SoundManager.playSound("MenuMusic", true);
+			}
 		}
 		
 		private function playClicked(e:MouseEvent):void {
