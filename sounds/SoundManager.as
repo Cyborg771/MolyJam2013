@@ -63,6 +63,9 @@
 		{
 			if (_$sounds[soundName] != null)
 			{
+				if (_$sounds[soundName].soundChannel != null) {
+					_$sounds[soundName].soundChannel.removeEventListener(Event.SOUND_COMPLETE, onSoundChannelSoundComplete);
+				}
 				_$sounds[soundName] = null;
 				trace("REMOVED SOUND: "+soundName);
 			}
@@ -151,15 +154,13 @@
 		//onSoundChannelSoundComplete is an event listener function which is called when a sound ends. It iterates through the sounds dictionary looking for the sound
 		//which matches the one that just ended. It then checks if the sound is set to loop, if so it plays it again, if not then it nullifies the ManageableSound's
 		//SoundChannel.
-		public static function onSoundChannelSoundComplete(e:Event):void
-		{
+		public static function onSoundChannelSoundComplete(e:Event):void {
 			e.currentTarget.removeEventListener(Event.SOUND_COMPLETE, onSoundChannelSoundComplete);
-			for (var key:String in _$sounds)
-			{
-				if (_$sounds[key].soundChannel == e.currentTarget) 
-				{
+			for (var key:String in _$sounds) {
+				if (_$sounds[key].soundChannel == e.currentTarget) {
 					if (_$sounds[key].loop) playSound(key, true);
 					else _$sounds[key].soundChannel = null;
+					break;
 				}
 			}
 		}

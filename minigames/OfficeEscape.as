@@ -50,11 +50,11 @@
 		}
 		
 		protected override function keyDownFunction(e:KeyboardEvent):void {
-			if (e.keyCode == 83 && !_jumping) {
+			if ((e.keyCode == 83 || e.keyCode == 40) && !_jumping) {
 				character.gotoAndStop(2);
 				if (!SoundManager.checkIfPlaying("Slide")) SoundManager.playSound("Slide");
 			}
-			if (e.keyCode == 87 && !_jumping) {
+			if ((e.keyCode || e.keyCode == 38) == 87 && !_jumping) {
 				_jumping = true;
 				character.gotoAndStop(3);
 				_velocityY = _jumpStrength;
@@ -63,7 +63,7 @@
 		}
 		
 		protected override function keyUpFunction(e:KeyboardEvent):void {
-			if (!_jumping && e.keyCode == 83) {
+			if (!_jumping && (e.keyCode == 83 || e.keyCode == 40)) {
 				character.gotoAndStop(1);
 				SoundManager.stopSound("Slide");
 			}
@@ -104,6 +104,7 @@
 						character.gotoAndStop(4);
 						_flashTime = 32;
 					}
+					_gameState.changeRelaxation(-1);
 				}
 			}
 			if (character.currentFrame == 4 && _flashTime == 0) {
@@ -122,6 +123,7 @@
 			SoundManager.removeSound("Slide");
 			SoundManager.removeSound("Hit");
 			SoundManager.removeSound("GottaLeave");
+			_gameState.changeRelaxation(15);
 			minigameComplete();
 		}
 		

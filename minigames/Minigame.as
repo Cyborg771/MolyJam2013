@@ -35,6 +35,7 @@
 		
 		protected function minigameComplete(){
 			_gameState.getStage().removeEventListener(KeyboardEvent.KEY_DOWN, keyDownFunction);
+			_gameState.getStage().removeEventListener(KeyboardEvent.KEY_UP, keyUpFunction);
 			dispatchEvent(new Event(MINIGAME_COMPLETE));
 		}
 		

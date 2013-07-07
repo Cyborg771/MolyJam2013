@@ -30,7 +30,8 @@
 			_relaxationMeter.y = 10;
 			addChild(_relaxationMeter);
 			
-			_minigames = new Array(TestMinigame, OfficeEscape, DriveHome);
+			//_minigames = new Array(TestMinigame, OfficeEscape, DriveHome);
+			_minigames = new Array(OfficeEscape, DriveHome);
 			
 			var _loader:Loader = new Loader();
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaded, false, 0, true);
@@ -64,6 +65,10 @@
 			addChild(_background);
 			setChildIndex(_background, 0);
 			removeChild(loadScreen);
+		}
+		
+		public function changeRelaxation(delta:Number) {
+			_relaxationMeter.relaxationValue += delta;
 		}
 		
 		private function nextMinigame(){
