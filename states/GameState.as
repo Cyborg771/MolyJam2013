@@ -14,7 +14,9 @@
 	
 	public class GameState extends State {
 		
+		private var _loader:Loader;
 		private var _background:MovieClip;
+		private var _backgroundTrippy:MovieClip;
 		private var _relaxationMeter:RelaxationMeter;
 		private var _instructions:Instructions;
 		private var _instructionSets:Array;
@@ -44,13 +46,13 @@
 			_instructions.visible = false;
 			_instructions.mouseEnabled = false;
 			
-			_minigames = new Array(OfficeEscape, DriveHome, BeerGrab, BeerOpen, ChannelSurfing, CatPat, BurgerGrill);
-			_instructionSets = [3, 1, 2, 2, 2, 2, 5];
+			_minigames = new Array(OfficeEscape, DriveHome, BeerGrab, BeerOpen, ChannelSurfing, CatPat, BurgerGrill, HammockSwing);
+			_instructionSets = [3, 1, 2, 2, 2, 2, 5, 4];
 			
-			//_minigames = new Array(CatPat);
-			//_instructionSets = [1, 1, 1, 1];
+			//_minigames = new Array(HammockSwing);
+			//_instructionSets = [4];
 			
-			var _loader:Loader = new Loader();
+			_loader = new Loader();
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaded, false, 0, true);
 			_loader.load(new URLRequest("Background.swf"));
 			
@@ -86,17 +88,38 @@
 		}
 		
 		private function onLoaded(e:Event) {
+			_loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, onLoaded);
 			_background = e.target.content;
 			addChild(_background);
 			setChildIndex(_background, 0);
 			removeChild(loadScreen);
 			
+			_loader.load(new URLRequest("BackgroundTrippy.swf"));
+			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaded2, false, 0, true);
+			
 			nextMinigame();
 			_currentMinigame.addEventListener(Minigame.MINIGAME_COMPLETE, minigameComplete, false, 0, true);
 		}
 		
+		private function onLoaded2(e:Event) {
+			_loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, onLoaded2);
+			_backgroundTrippy = e.target.content;
+			addChild(_backgroundTrippy);
+			setChildIndex(_backgroundTrippy, 0);
+			_backgroundTrippy.visible = false;
+		}
+		
 		public function changeRelaxation(delta:Number) {
 			_relaxationMeter.relaxationValue += delta;
+			
+			if (_relaxationMeter.relaxationValue > 0) {
+				_backgroundTrippy.visible = true;
+				_background.visible = false;
+			}
+			else {
+				_backgroundTrippy.visible = false;
+				_background.visible = true;
+			}
 		}
 		
 		private function nextMinigame(){
