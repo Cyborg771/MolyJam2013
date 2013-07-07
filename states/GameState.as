@@ -46,11 +46,11 @@
 			_instructions.visible = false;
 			_instructions.mouseEnabled = false;
 			
-			_minigames = new Array(OfficeEscape, DriveHome, BeerGrab, BeerOpen, ChannelSurfing, CatPat, BurgerGrill, HammockSwing);
-			_instructionSets = [3, 1, 2, 2, 2, 2, 5, 4];
+			_minigames = new Array(OfficeEscape, DriveHome, DoorOpen, BeerGrab, BeerOpen, ChannelSurfing, CatPat, BurgerGrill, HammockSwing);
+			_instructionSets = [3, 1, 5, 2, 2, 2, 2, 5, 4];
 			
-			//_minigames = new Array(HammockSwing);
-			//_instructionSets = [4];
+			_minigames = new Array(DoorOpen);
+			_instructionSets = [5];
 			
 			_loader = new Loader();
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaded, false, 0, true);
