@@ -26,12 +26,15 @@
 			super(manager);
 			trace("GAME STATE INITIALIZED");
 			
+			SoundManager.addSound("GameMusic", new GameMusic(), SoundManager.MUSIC);
+			SoundManager.playSound("GameMusic", true);
+			
 			_relaxationMeter = new RelaxationMeter();
 			_relaxationMeter.x = 10;
 			_relaxationMeter.y = 10;
 			addChild(_relaxationMeter);
 			
-			_minigames = new Array(ChannelSurfing, OfficeEscape, DriveHome, BeerGrab);
+			_minigames = new Array(BeerGrab);
 			
 			var _loader:Loader = new Loader();
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaded, false, 0, true);
@@ -41,15 +44,11 @@
 			_currentMinigame.addEventListener(Minigame.MINIGAME_COMPLETE, minigameComplete, false, 0, true);
 			
 			setChildIndex(loadScreen, this.numChildren-1);
-			
-			SoundManager.addSound("GameMusic", new GameMusic(), SoundManager.MUSIC);
-			SoundManager.playSound("GameMusic", true);
 		}
 		
 		public override function update():void {
 			_relaxationMeter.update();
 			if (_currentMinigame != null) {
-				_currentMinigame.update();
 				if (_shakeTime > 0) {
 					var randomInt:int = Math.floor( Math.random() * 3 ) -1;
 					_currentMinigame.x = randomInt * _shakeTime;
@@ -60,6 +59,7 @@
 					_currentMinigame.x = 0;
 					_currentMinigame.y = 0;
 				}
+				_currentMinigame.update();
 			}
 		}
 		

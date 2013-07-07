@@ -50,9 +50,9 @@
 						_gameState.changeRelaxation(-10);
 					}
 					else {
-						minigameComplete();
 						_gameState.changeRelaxation(10);
 						SoundManager.removeSound("Beer");
+						minigameComplete();
 					}
 				}
 			}
