@@ -29,7 +29,7 @@
 		
 		protected override function keyUpFunction(e:KeyboardEvent):void {
 			if (_started) {
-				if (e.keyCode == 87 || e.keyCode == 38) {
+				if (e.keyCode == 87) {
 					_grabbing = true;
 				}
 			}

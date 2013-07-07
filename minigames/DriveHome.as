@@ -109,16 +109,16 @@
 		
 		protected override function keyDownFunction(e:KeyboardEvent):void {
 			if (_started) {
-				if (e.keyCode == 68 || e.keyCode == 39) {
+				if (e.keyCode == 68) {
 					_moveRight = true;
 				}
-				else if (e.keyCode == 65 || e.keyCode == 37) {
+				else if (e.keyCode == 65) {
 					_moveLeft = true;
 				}
-				if (e.keyCode == 87 || e.keyCode == 38) {
+				if (e.keyCode == 87) {
 					_moveUp = true;
 				}
-				else if (e.keyCode == 83 || e.keyCode == 40) {
+				else if (e.keyCode == 83) {
 					_moveDown = true;
 				}
 			}
@@ -126,16 +126,16 @@
 		
 		protected override function keyUpFunction(e:KeyboardEvent):void {
 			if (_started) {
-				if (e.keyCode == 68 || e.keyCode == 39) {
+				if (e.keyCode == 68) {
 					_moveRight = false;
 				}
-				else if (e.keyCode == 65 || e.keyCode == 37) {
+				else if (e.keyCode == 65) {
 					_moveLeft = false;
 				}
-				if (e.keyCode == 87 || e.keyCode == 38) {
+				if (e.keyCode == 87) {
 					_moveUp = false;
 				}
-				else if (e.keyCode == 83 || e.keyCode == 40) {
+				else if (e.keyCode == 83) {
 					_moveDown = false;
 				}
 			}

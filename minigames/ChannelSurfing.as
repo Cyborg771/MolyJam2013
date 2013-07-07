@@ -46,11 +46,11 @@
 		}
 		
 		protected override function keyDownFunction(e:KeyboardEvent):void {
-			if (e.keyCode == 87 || e.keyCode == 38) tvContent.gotoAndStop(10);
+			if (e.keyCode == 87) tvContent.gotoAndStop(10);
 		}
 		
 		protected override function keyUpFunction(e:KeyboardEvent):void {
-			if (e.keyCode == 87 || e.keyCode == 38) changeChannel(e);
+			if (e.keyCode == 87) changeChannel(e);
 		}
 		
 		private function changeChannel(e:Event = null):void {

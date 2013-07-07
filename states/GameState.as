@@ -44,8 +44,11 @@
 			_instructions.visible = false;
 			_instructions.mouseEnabled = false;
 			
-			_minigames = new Array(OfficeEscape, DriveHome, BeerGrab, ChannelSurfing);
-			_instructionSets = new Array(3, 1, 2, 2);
+			//_minigames = new Array(OfficeEscape, DriveHome, BeerGrab, BeerOpen, ChannelSurfing, CatPat);
+			//_instructionSets = new Array(3, 1, 2, 2, 2, 2);
+			
+			_minigames = new Array(BurgerGrill);
+			_instructionSets = [5];
 			
 			var _loader:Loader = new Loader();
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaded, false, 0, true);

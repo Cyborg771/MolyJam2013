@@ -57,11 +57,11 @@
 		
 		protected override function keyDownFunction(e:KeyboardEvent):void {
 			if (_started) {
-				if ((e.keyCode == 83 || e.keyCode == 40) && !_jumping) {
+				if ((e.keyCode == 83) && !_jumping) {
 					character.gotoAndStop(2);
 					if (!SoundManager.checkIfPlaying("Slide")) SoundManager.playSound("Slide");
 				}
-				if ((e.keyCode || e.keyCode == 38) == 87 && !_jumping) {
+				if ((e.keyCode) == 87 && !_jumping) {
 					_jumping = true;
 					character.gotoAndStop(3);
 					_velocityY = _jumpStrength;
@@ -72,7 +72,7 @@
 		
 		protected override function keyUpFunction(e:KeyboardEvent):void {
 			if (_started) {
-				if (!_jumping && (e.keyCode == 83 || e.keyCode == 40)) {
+				if (!_jumping && (e.keyCode == 83)) {
 					character.gotoAndStop(1);
 					SoundManager.stopSound("Slide");
 				}
