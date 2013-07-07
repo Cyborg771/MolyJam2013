@@ -39,11 +39,11 @@
 		}
 		
 		protected override function keyDownFunction(e:KeyboardEvent):void {
-			if (e.keyCode == 32) tvContent.gotoAndStop(10);
+			if (e.keyCode == 87 || e.keyCode == 38) tvContent.gotoAndStop(10);
 		}
 		
 		protected override function keyUpFunction(e:KeyboardEvent):void {
-			if (e.keyCode == 32) changeChannel(e);
+			if (e.keyCode == 87 || e.keyCode == 38) changeChannel(e);
 		}
 		
 		private function changeChannel(e:Event = null):void {
@@ -59,7 +59,7 @@
 				icon.gotoAndStop(1);
 			}
 			else if (tvContent.currentFrame != 10) {
-				_gameState.changeRelaxation(0.1);
+				_gameState.changeRelaxation(0.15);
 				icon.gotoAndStop(2);
 			}
 		}
