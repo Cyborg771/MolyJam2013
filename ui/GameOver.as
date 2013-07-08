@@ -11,13 +11,22 @@
 		
 		public function GameOver(score:int, gameState:GameState) {
 			_gameState = gameState;
-			scoreText.text = "SCORE: "+score;
+			scoreText.text = "RELAXATION: "+score;
 			SoundManager.addSound("HighScore", new HighScore(), SoundManager.FX);
 			SoundManager.addSound("AverageScore", new AverageScore(), SoundManager.FX);
 			SoundManager.addSound("LowScore", new LowScore(), SoundManager.FX);
-			if (score >= 30) SoundManager.playSound("HighScore");
-			else if (score  > -30) SoundManager.playSound("AverageScore");
-			else SoundManager.playSound("LowScore");
+			if (score >= 30) {
+				SoundManager.playSound("HighScore");
+				avatar.gotoAndStop(1);
+			}
+			else if (score  > -30){
+				SoundManager.playSound("AverageScore");
+				avatar.gotoAndStop(3);
+			}
+			else{
+				SoundManager.playSound("LowScore");
+				avatar.gotoAndStop(2);
+			}
 			
 			backButton.addEventListener(MouseEvent.CLICK, backClicked, false, 0, true);
 		}
