@@ -46,10 +46,10 @@
 			_instructions.visible = false;
 			_instructions.mouseEnabled = false;
 			
-			_minigames = new Array(OfficeEscape, DriveHome, DoorOpen, BeerGrab, BeerOpen, Recliner, ChannelSurfing, CatPat, BurgerGrill, HammockSwing);
+			_minigames = new Array(OfficeEscape, DriveHome, DoorOpen, BeerGrab, BeerOpen, ChannelSurfing, CatPat, Recliner, BurgerGrill, HammockSwing);
 			_instructionSets = [3, 1, 5, 2, 2, 2, 2, 2, 5, 4];
 			
-			//_minigames = new Array(Recliner);
+			//_minigames = new Array(BeerGrab);
 			//_instructionSets = [2];
 			
 			_loader = new Loader();
@@ -112,13 +112,17 @@
 		public function changeRelaxation(delta:Number) {
 			_relaxationMeter.relaxationValue += delta;
 			
-			if (_relaxationMeter.relaxationValue > 0) {
+			if (_relaxationMeter.relaxationValue >= 30) {
 				_backgroundTrippy.visible = true;
 				_background.visible = false;
 			}
-			else {
+			else if (_relaxationMeter.relaxationValue > -30) {
 				_backgroundTrippy.visible = false;
 				_background.visible = true;
+			}
+			else {
+				_backgroundTrippy.visible = false;
+				_background.visible = false;
 			}
 		}
 		
@@ -138,9 +142,8 @@
 				setInstructions(_instructionSets[_currentIndex]);
 			}
 			else {
-				trace("GAME OVER");
-				SoundManager.stopSound("GameMusic");
-				SoundManager.removeSound("GameMusic");
+				removeChild(_relaxationMeter);
+				addChild(new GameOver(_relaxationMeter.relaxationValue, this));
 			}
 		}
 		
@@ -159,6 +162,12 @@
 		
 		public function shakeMinigame(time:int):void {
 			_shakeTime = time;
+		}
+		
+		public function endGame(){
+			SoundManager.stopSound("GameMusic");
+			SoundManager.removeSound("GameMusic");
+			_manager.setState("Menu");
 		}
 		
 	}
