@@ -78,6 +78,7 @@
 			yesNoIcon.gotoAndStop(1);
 			TweenLite.to(key, 0.2, {y:400, onComplete:wrongKey2});
 			flashIcon();
+			_gameState.changeRelaxation(-1);
 		}
 		
 		private function wrongKey2() {
@@ -90,6 +91,7 @@
 			_gameOver = true;
 			yesNoIcon.gotoAndStop(2);
 			flashIcon();
+			_gameState.changeRelaxation(3);
 		}
 		
 		private function shuffleKeys() {
