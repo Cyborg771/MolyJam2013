@@ -75,7 +75,7 @@
 				if (_temp < 1) _temp = 1;
 			}
 			if (Math.abs(_temp - _targetTemp) < 10) {
-				_gameState.changeRelaxation(0.2);
+				_gameState.changeRelaxation(0.12);
 				warning.gotoAndStop(3);
 			}
 			else {
@@ -91,6 +91,7 @@
 		}
 		
 		private function timerComplete(e:TimerEvent):void {
+			SoundManager.stopSound("Shower");
 			SoundManager.removeSound("Shower");
 			minigameComplete();
 		}

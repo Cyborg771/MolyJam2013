@@ -57,7 +57,7 @@
 					if (closestDist < 30) {
 						_matchIcons[closestIcon].alpha = 0.5;
 						if (correctButton) {
-							_gameState.changeRelaxation(1);
+							_gameState.changeRelaxation(0.5);
 							_swings++;
 							SoundManager.playSound("Swing");
 							if (_swings >= 20) {

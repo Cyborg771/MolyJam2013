@@ -50,7 +50,7 @@
 					if (closestDist < 30) {
 						cat.gotoAndStop(3);
 						_matchIcons[closestIcon].alpha = 0.5;
-						_gameState.changeRelaxation(1);
+						_gameState.changeRelaxation(0.5);
 						_patCounter++;
 						if (_patCounter >= 15) {
 							SoundManager.removeSound("CatHappy1");

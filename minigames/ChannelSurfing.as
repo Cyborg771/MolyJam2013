@@ -72,11 +72,11 @@
 		
 		public override function update():void {
 			if (tvContent.currentFrame <= 5) {
-				_gameState.changeRelaxation(-0.25);
+				_gameState.changeRelaxation(-0.2);
 				icon.gotoAndStop(1);
 			}
 			else if (tvContent.currentFrame != 10) {
-				_gameState.changeRelaxation(0.15);
+				_gameState.changeRelaxation(0.05);
 				icon.gotoAndStop(2);
 			}
 		}

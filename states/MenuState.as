@@ -20,9 +20,6 @@
 			super(manager);
 			trace("MENU STATE INITIALIZED");
 			
-			playButton.addEventListener(MouseEvent.CLICK, playClicked, false, 0, true);
-			creditsButton.addEventListener(MouseEvent.CLICK, creditsClicked, false, 0, true);
-			
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaded, false, 0, true);
 			_loader.load(new URLRequest("IntroQuote.swf"));
 			
@@ -77,6 +74,8 @@
 				removeChild(_introVid);
 				_introVid.stop();
 				_introVid = null;
+				playButton.addEventListener(MouseEvent.CLICK, playClicked, false, 0, true);
+				creditsButton.addEventListener(MouseEvent.CLICK, creditsClicked, false, 0, true);
 			}
 		}
 		

@@ -27,7 +27,7 @@
 			SoundManager.playSound("Beer");
 		}
 		
-		protected override function keyUpFunction(e:KeyboardEvent):void {
+		protected override function keyDownFunction(e:KeyboardEvent):void {
 			if (_started) {
 				if (e.keyCode == 87) {
 					_grabbing = true;

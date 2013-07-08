@@ -47,7 +47,7 @@
 			_instructions.mouseEnabled = false;
 			
 			_minigames = new Array(OfficeEscape, DriveHome, DoorOpen, BathTime, BeerGrab, BeerOpen, ChannelSurfing, CatPat, Recliner, BurgerGrill, HammockSwing);
-			_instructionSets = [3, 1, 5, 2, 4, 2, 2, 2, 2, 5, 4];
+			_instructionSets = [3, 1, 5, 4, 2, 2, 2, 2, 2, 5, 4];
 			
 			_loader = new Loader();
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaded, false, 0, true);
